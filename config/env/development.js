@@ -30,6 +30,15 @@ module.exports = {
   **************************************************************************/
   datastores: {
 
+    postgresDev: {
+        adapter: 'sails-postgresql',
+        host: '',
+        port: '',
+        user: '',
+        password: '',
+        database: ''
+    },
+
     /***************************************************************************
     *                                                                          *
     * Configure your default production database.                              *
@@ -76,6 +85,7 @@ module.exports = {
   },
 
   models: {
+    connection: 'postgresDev',
 
     /***************************************************************************
     *                                                                          *
