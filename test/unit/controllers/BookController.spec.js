@@ -1,9 +1,10 @@
+//var server = require("../../../app")
 var supertest = require('supertest')
 var util = require('util')
 
 require('../../lifecycle.test')
 
-describe('The Book Controller', function() {
+describe('POST /api/publish', function() {
     
     /*
     it("should respond with 200 id is authorised", async () => {
@@ -17,13 +18,14 @@ describe('The Book Controller', function() {
 
     });
     */
-
-    //Test for publishing a new book version
+    // /application\/json/
+    // Test for publishing a new book version
     var createdBookId = 0
     it('Should create a book record', function (done) {
         var agent = supertest.agent(sails.hooks.http.app);
         agent
-            .post('api/publish')
+        //supertest(sails.hooks.http.app)
+            .post('/api/publish')
             .set('Accept', 'application/json')
             .send({"header": "some key", "body": "some body"})
             .expect('Content-Type', /json/)
@@ -46,26 +48,28 @@ describe('The Book Controller', function() {
                 }
             });
         })
+})
 
-        //test for fetching published books
-        it('Should get published books matching string parameters', function(done){
-            var agent = supertest.agent(sails.hooks.http.app);
-            agent
-                .get('api/books')
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200)
-                .end(function (err, result) {
-                    if (err) {
-                        done(err);
-                    } 
-                    else {
-                        result.body.should.be.an('array') //a list with a json object
-                        result.body.should.have.length(1)
-                        done();
-                    }
-                });
-        })
-
-
+describe('GET /api/books', function(){
+    // test for fetching published books
+    it('Should get published books matching string parameters', function(done){
+    var agent = supertest.agent(sails.hooks.http.app);
+    agent
+    // supertest(sails.hooks.http.app)
+            .get('/api/books')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function (err, result) {
+                if (err) {
+                    console.log(result)
+                    done(err);
+                } 
+                else {
+                    result.body.should.be.an('array') //a list with a json object
+                    result.body.should.have.length(1)
+                    done();
+                }
+            });
+    })
 })

@@ -1,3 +1,5 @@
+//var SailsApp = require('sails').Sails
+//var sails = new SailsApp()
 var sails = require('sails')
 var _ = require('lodash')
 require('../config/env/development')
@@ -34,8 +36,9 @@ before(function (done) {
     */
     
   }, 
-  function (err, server) {
+  function (err, sails) {
     if (err) { 
+      console.log('Error occurred loading Sails app:', err);
       return done(err) 
     }
     // here you can load fixtures, etc.
